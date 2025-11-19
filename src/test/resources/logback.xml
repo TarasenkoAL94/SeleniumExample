@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+    <property name="defaultPattern"
+              value="%d{yyyy-MM-dd | HH:mm:ss} %highlight([%-5level]) [%thread] %cyan([%file:%line]) : %m%n"/>
+
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${defaultPattern}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="%{root-log-level:-off}">
+        <appender-ref ref="CONSOLE" />
+    </root>
+
+    <variable name="logLevel" value="${loglevel:-info}"/>
+    <logger name="com.exampletestautomation.test" level="${logLevel}"/>
+
+</configuration>

@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite name="Exceptions Suite" verbose="1">
+    <test name="=NoSuchElementException Test">
+        <classes>
+            <class name="com.exampletestautomation.test.exceptions.ExceptionTests">
+                <methods>
+                    <include name="testNseException"/>
+                </methods>
+            </class>
+
+        </classes>
+    </test>
+
+</suite>
