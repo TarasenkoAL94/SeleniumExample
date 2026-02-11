@@ -2,6 +2,7 @@ package com.exampletestautomation.test.login;
 
 import com.exampleautomation.pages.LoginPage;
 import com.exampleautomation.utilities.CommonUtilities;
+import com.exampleautomation.utilities.ReadProperties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -39,21 +40,20 @@ public class LoginTests {
                 LOG.warn("Configuration for {} browser is missing. Running tests in Chrome by default", browser);
                 driver = new ChromeDriver();
         }
-        driver.get("https://practicetestautomation.com/practice-test-login/");
+        driver.get(Objects.requireNonNull(ReadProperties.getProp("initialPage")));
         loginPage = new LoginPage(driver);
     }
 
     @AfterMethod(alwaysRun = true)
-    public void tearDown(){
+    public void tearDown() {
         driver.quit();
         LOG.info("browser is closed");
     }
 
 
-
     @Test(groups = {"positive", "regression", "smoke"})
     @Parameters({"username", "password"})
-    public void testLoginFunctionality(String username, String password){
+    public void testLoginFunctionality(String username, String password) {
         LOG.info("Starting testLoginFunctionality");
         //Type username student into Username field
         LOG.info("input username: {}", username);
@@ -74,7 +74,7 @@ public class LoginTests {
     }
 
     @Test(groups = {"negative", "regression"}, dataProvider = "testdata")
-    public void negativeLoginTest(String username, String password, String expectedErrorMessage){
+    public void negativeLoginTest(String username, String password, String expectedErrorMessage) {
         //Type username into Username field
         LOG.info("input username: {}", username);
         loginPage.fillLoginField(username);
@@ -92,11 +92,11 @@ public class LoginTests {
     }
 
     @DataProvider(name = "testdata")
-    public Object[][] testData(){
+    public Object[][] testData() {
 //        Faker faker = new Faker();
-        return new Object[][] {
-                { "asdasdasd", "Password123", "Your username is invalid!" },
-                { "student", "asdasdasdasd", "Your password is invalid!" }
+        return new Object[][]{
+                {"asdasdasd", "Password123", "Your username is invalid!"},
+                {"student", "asdasdasdasd", "Your password is invalid!"}
         };
     }
 }
