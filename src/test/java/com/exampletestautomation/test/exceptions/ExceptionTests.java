@@ -1,5 +1,7 @@
 package com.exampletestautomation.test.exceptions;
 
+import com.exampleautomation.utilities.DriverProvider;
+import com.exampleautomation.utilities.ReadProperties;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +16,7 @@ import org.testng.Assert;
 import org.testng.annotations.*;
 
 import java.time.Duration;
+import java.util.Objects;
 
 
 public class ExceptionTests {
@@ -25,26 +28,13 @@ public class ExceptionTests {
     @Parameters("browser")
     public void setUp(@Optional("chrome") String browser) {
         LOG.info("Running tests in: " + browser);
-        switch (browser.toLowerCase()) {
-            case "chrome":
-                driver = new ChromeDriver();
-                break;
-            case "firefox":
-                driver = new FirefoxDriver();
-                break;
-            case "edge":
-                driver = new EdgeDriver();
-                break;
-            default:
-                LOG.warn("Configuration for {} browser is missing. Running tests in Chrome by default", browser);
-                driver = new ChromeDriver();
-        }
-        driver.get("https://practicetestautomation.com/practice-test-exceptions/");
+        driver = DriverProvider.getDriver(browser);
+        driver.get(Objects.requireNonNull(ReadProperties.getProp("initialPage")));
     }
 
     @AfterMethod(alwaysRun = true)
     public void tearDown(){
-        driver.quit();
+        DriverProvider.quitDriver();
         LOG.info("browser is closed");
     }
 

@@ -2,11 +2,9 @@ package com.exampletestautomation.test.login;
 
 import com.exampleautomation.pages.LoginPage;
 import com.exampleautomation.utilities.CommonUtilities;
+import com.exampleautomation.utilities.DriverProvider;
 import com.exampleautomation.utilities.ReadProperties;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -26,27 +24,14 @@ public class LoginTests {
     @Parameters("browser")
     public void setUp(@Optional("chrome") String browser) {
         LOG.info("Running tests in: " + browser);
-        switch (browser.toLowerCase()) {
-            case "chrome":
-                driver = new ChromeDriver();
-                break;
-            case "firefox":
-                driver = new FirefoxDriver();
-                break;
-            case "edge":
-                driver = new EdgeDriver();
-                break;
-            default:
-                LOG.warn("Configuration for {} browser is missing. Running tests in Chrome by default", browser);
-                driver = new ChromeDriver();
-        }
+        driver = DriverProvider.getDriver(browser);
         driver.get(Objects.requireNonNull(ReadProperties.getProp("initialPage")));
         loginPage = new LoginPage(driver);
     }
 
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
-        driver.quit();
+        DriverProvider.quitDriver();
         LOG.info("browser is closed");
     }
 
