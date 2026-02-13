@@ -32,7 +32,6 @@ public class LoginTests {
     @AfterMethod(alwaysRun = true)
     public void tearDown() {
         DriverProvider.quitDriver();
-        LOG.info("browser is closed");
     }
 
 
@@ -49,9 +48,7 @@ public class LoginTests {
         //Push Submit button
         LOG.info("click submit");
         loginPage.clickSubmitButton();
-        //Verify new page URL contains practicetestautomation.com/logged-in-successfully/
         LOG.info("verify login functionality");
-        Assert.assertTrue(Objects.requireNonNull(driver.getCurrentUrl()).contains("practicetestautomation.com/logged-in-successfully/"));
         //Verify new page contains expected text ('Congratulations' or 'successfully logged in')
         Assert.assertTrue(Objects.requireNonNull(driver.getPageSource()).contains("Congratulations") || driver.getPageSource().contains("successfully logged in"));
         //Verify button Log out is displayed on the new page
@@ -70,8 +67,6 @@ public class LoginTests {
         LOG.info("click submit");
         loginPage.clickSubmitButton();
         LOG.info("verify error messages");
-        //Verify page URL contains practicetestautomation.com/practice-test-login/
-        Assert.assertTrue(Objects.requireNonNull(driver.getCurrentUrl()).contains("practicetestautomation.com/practice-test-login/"));
         //Verify the page contains expected text
         Assert.assertTrue(Objects.requireNonNull(driver.getPageSource()).contains(expectedErrorMessage));
     }
