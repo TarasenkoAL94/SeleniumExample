@@ -1,6 +1,5 @@
 package com.exampleautomation.utilities.enums;
 
-import org.openqa.selenium.WebDriver;
 
 public enum DriverTypes {
     CHROME("chrome"),
@@ -8,7 +7,7 @@ public enum DriverTypes {
     SAFARI("safari"),
     EDGE("edge");
 
-    String text;
+    final String text;
 
     DriverTypes(String text) {
         this.text = text;
