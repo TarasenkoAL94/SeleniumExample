@@ -5,10 +5,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DriverProvider {
 
     private static WebDriver driver;
+    private static  final Logger LOG = LoggerFactory.getLogger(DriverProvider.class);
 
     private DriverProvider(){
 
@@ -36,5 +39,6 @@ public class DriverProvider {
             driver.quit();
             driver = null;
         }
+        LOG.info("browser is closed");
     }
 }

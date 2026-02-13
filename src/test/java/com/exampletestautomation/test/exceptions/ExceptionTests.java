@@ -35,7 +35,6 @@ public class ExceptionTests {
     @AfterMethod(alwaysRun = true)
     public void tearDown(){
         DriverProvider.quitDriver();
-        LOG.info("browser is closed");
     }
 
     @Test
